@@ -1,4 +1,3 @@
-// routes/users.js
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -6,6 +5,7 @@ const User = require('../models/User');
 
 const router = express.Router();
 
+// Register route
 router.post('/register', async (req, res) => {
   const { name, email, password, phoneNo, profession } = req.body;
 
@@ -19,6 +19,7 @@ router.post('/register', async (req, res) => {
   }
 });
 
+// Login route
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -36,6 +37,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// Get all users
 router.get('/', async (req, res) => {
   try {
     const users = await User.find();
@@ -45,8 +47,8 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Update user
 router.put('/:id', async (req, res) => {
-  
   const { name, phoneNo } = req.body;
 
   try {
@@ -58,6 +60,18 @@ router.put('/:id', async (req, res) => {
 
     await user.save();
     res.json({ message: 'User updated successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Delete user
+router.delete('/:id', async (req, res) => {
+  try {
+    const user = await User.findByIdAndDelete(req.params.id);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+
+    res.json({ message: 'User deleted successfully' });
   } catch (error) {
     res.status(500).json({ error: 'Server error' });
   }

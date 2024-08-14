@@ -35,4 +35,4 @@ This is a full-stack web application designed for managing user data. It provide
 
 1. **Clone the Repository:**
 
-   ```bash https://github.com/kuntalkumar/Assignments/tree/main/geeksynergy
+    https://github.com/kuntalkumar/Assignments/tree/main/geeksynergy
